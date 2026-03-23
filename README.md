@@ -1,6 +1,8 @@
-# 🌿 Deep Learning cho Phân vùng Bệnh Cây trồng trên Raspberry Pi 4
+# 🌿 Nghiên cứu và Triển khai Mô hình Phân vùng Ảnh sử dụng Học sâu trên Raspberry Pi
 
-> Nghiên cứu và đánh giá mô hình **Semantic Segmentation** nhẹ cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**. Kết quả cho thấy **Fast-SCNN** là mô hình tối ưu nhất để triển khai trên thiết bị edge, với hiệu suất vượt trội so với ENet về cả độ chính xác lẫn tốc độ.
+> **Báo cáo Nghiên cứu Khoa học** — Trường Đại học Thăng Long, Khoa Công nghệ Thông tin
+>
+> Nghiên cứu và đánh giá mô hình **Semantic Segmentation** nhẹ (Fast-SCNN & ENet) cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**. Kết quả cho thấy **Fast-SCNN** là mô hình tối ưu nhất để triển khai trên thiết bị edge, với hiệu suất vượt trội so với ENet về cả độ chính xác lẫn tốc độ.
 
 ---
 
@@ -283,15 +285,18 @@ Kết quả đánh giá trên tập test, sử dụng **mô hình TFLite INT8** 
 
 ## 👥 Tác giả
 
-- **Đình Vinh** — [@ddinhvinh](https://github.com/ddinhvinh)
-- **Hà Phạm Mai Linh** — [@hpmlinh26](https://github.com/hpmlinh26)
-- **Phạm Dương** — [@pduonng29](https://github.com/pduonng29)
+| MSSV | Họ và Tên | GitHub |
+|------|-----------|--------|
+| A50757 | **Phạm Thùy Dương** | [@pduonng29](https://github.com/pduonng29) |
+| A51067 | **Đỗ Đình Vinh** | [@ddinhvinh](https://github.com/ddinhvinh) |
+| A49612 | **Hà Phạm Mai Linh** | [@hpmlinh26](https://github.com/hpmlinh26) |
 
-**Hà Phạm Mai Linh** — [@hpmlinh26](https://github.com/hpmlinh26)
+- **Lĩnh vực:** Khoa học Kỹ thuật và Công nghệ
+- **GVHD:** ThS. Ngô Mạnh Cường
+- **Đơn vị:** Khoa Công nghệ Thông tin — Trường Đại học Thăng Long
 
-**Phạm Dương** — [@pduonng29](https://github.com/pduonng29)
+---
 
+## 📄 License
 
-
-
-
+Dự án này được phát hành dưới [MIT License](LICENSE).

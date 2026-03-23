@@ -1,6 +1,6 @@
-# 🌿 Plant Segmentation on Raspberry Pi 4
+# 🌿 Deep Learning cho Phân vùng Bệnh Cây trồng trên Raspberry Pi 4
 
-> Nghiên cứu triển khai mô hình **Semantic Segmentation** (Fast-SCNN & ENet) cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**, sử dụng TensorFlow / TensorFlow Lite.
+> Nghiên cứu và đánh giá mô hình **Semantic Segmentation** nhẹ cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**. Kết quả cho thấy **Fast-SCNN** là mô hình tối ưu nhất để triển khai trên thiết bị edge, với hiệu suất vượt trội so với ENet về cả độ chính xác lẫn tốc độ.
 
 ---
 
@@ -20,14 +20,18 @@
 
 ## 📖 Giới thiệu
 
-Dự án này tập trung vào việc huấn luyện và triển khai hai mô hình **lightweight semantic segmentation** cho bài toán **phân vùng nhị phân (binary segmentation)** bệnh cây trồng:
+Dự án này nghiên cứu và triển khai hai mô hình **lightweight semantic segmentation** cho bài toán **phân vùng nhị phân (binary segmentation)** bệnh cây trồng trên **Raspberry Pi 4**, nhằm tìm ra mô hình học sâu tốt nhất phù hợp với thiết bị edge có tài nguyên hạn chế.
 
-| Mô hình | Đặc điểm |
-|---------|-----------|
-| **Fast-SCNN** | Learning to Downsample + Feature Fusion + Pyramid Pooling |
-| **ENet** | Encoder-Decoder hiệu quả với Bottleneck blocks + PReLU |
+Hai mô hình được đánh giá:
 
-Cả hai mô hình đều được thiết kế nhẹ, phù hợp triển khai trên thiết bị **edge** như Raspberry Pi 4.
+| Mô hình | Vai trò | Đặc điểm |
+|---------|---------|-----------|
+| **Fast-SCNN** ⭐ | **Mô hình chính (đề xuất)** | Learning to Downsample + Feature Fusion + Pyramid Pooling — cho kết quả tốt nhất trên Raspberry Pi 4 |
+| **ENet** | Mô hình so sánh | Encoder-Decoder hiệu quả với Bottleneck blocks + PReLU |
+
+### 🏆 Kết luận nghiên cứu
+
+> **Fast-SCNN** được chọn là mô hình tốt nhất cho triển khai trên Raspberry Pi 4, với **Binary Accuracy cao hơn (86.32% vs 83.29%)**, **Dice và IoU vượt trội**, và đặc biệt **tốc độ gấp ~3 lần** so với ENet (23.34 FPS vs 7.94 FPS). ENet chỉ được sử dụng thêm để làm cơ sở so sánh, đánh giá hiệu quả của Fast-SCNN.
 
 ### Tính năng chính
 
@@ -36,13 +40,14 @@ Cả hai mô hình đều được thiết kế nhẹ, phù hợp triển khai t
 - ✅ Data augmentation (flip, brightness)
 - ✅ Hỗ trợ inference đơn ảnh hoặc cả thư mục
 - ✅ Xuất overlay trực quan (ảnh gốc + mask dự đoán)
-- ✅ Cung cấp sẵn model weights (`.keras`) và **TFLite** (`.tflite`) để chạy trực tiếp trên Raspberry Pi
+- ✅ Chuyển đổi sang **TFLite INT8** để chạy trực tiếp trên Raspberry Pi
+- ✅ Cung cấp sẵn model weights (`.keras`) và **TFLite** (`.tflite`)
 
 ---
 
 ## 🧠 Kiến trúc mô hình
 
-### Fast-SCNN
+### Fast-SCNN ⭐ (Mô hình đề xuất)
 
 ```
 Input (256×256×3)
@@ -53,7 +58,7 @@ Input (256×256×3)
   → Bilinear Upsample → Output (256×256×1)
 ```
 
-### ENet
+### ENet (Mô hình so sánh)
 
 ```
 Input (256×256×3)
@@ -72,10 +77,10 @@ Input (256×256×3)
 ├── models/                           # Kiến trúc mô hình + weights
 │   ├── fast_scnn.py                  # Định nghĩa kiến trúc Fast-SCNN
 │   ├── enet.py                       # Định nghĩa kiến trúc ENet
-│   ├── final_model_fast.keras        # Pretrained Fast-SCNN (~6.7 MB)
-│   ├── final_model_enet.keras        # Pretrained ENet (~2.4 MB)
-│   ├── fast_scnn_model.tflite        # TFLite Fast-SCNN cho RPi (~0.6 MB)
-│   └── enet_model.tflite             # TFLite ENet cho RPi (~0.2 MB)
+│   ├── final_model_fast.keras        # Pretrained Fast-SCNN (~2.5 MB)
+│   ├── final_model_enet.keras        # Pretrained ENet (~0.8 MB)
+│   ├── fast_scnn_model.tflite        # TFLite INT8 Fast-SCNN (~636 KB)
+│   └── enet_model.tflite             # TFLite INT8 ENet (~204 KB)
 ├── splits/
 │   ├── train.txt                     # Danh sách file train
 │   ├── val.txt                       # Danh sách file validation
@@ -189,10 +194,10 @@ python check_dataset.py
 ### 🏋️ Huấn luyện (Training)
 
 ```bash
-# Huấn luyện Fast-SCNN (mặc định)
+# Huấn luyện Fast-SCNN (mặc định — mô hình đề xuất)
 python train.py --data_root processed_binary --model fast_scnn --epochs 50 --batch_size 8 --lr 0.001
 
-# Huấn luyện ENet
+# Huấn luyện ENet (để so sánh)
 python train.py --data_root processed_binary --model enet --epochs 50 --batch_size 8 --lr 0.001
 ```
 
@@ -265,18 +270,22 @@ python infer_folder.py \
 
 ## 📈 Kết quả
 
-> 💡 *Bổ sung kết quả sau khi huấn luyện xong.*
+Kết quả đánh giá trên tập test, sử dụng **mô hình TFLite INT8** chạy trực tiếp trên **Raspberry Pi 4**:
 
-| Mô hình | Binary Acc | Dice | IoU | Params | FPS (RPi4) |
-|---------|-----------|------|-----|--------|------------|
-| Fast-SCNN | — | — | — | — | — |
-| ENet | — | — | — | — | — |
+| Mô hình | Binary Acc | Dice | IoU | Params (.keras) | Kích thước TFLite | FPS (RPi4) |
+|---------|-----------|------|-----|-----------------|-------------------|------------|
+| **Fast-SCNN** ⭐ | **86.32%** | **0.5924** | **0.4710** | 2.5 MB (~1.11M) | 636 KB | **23.34** |
+| ENet | 83.29% | 0.5473 | 0.4195 | 0.8 MB (~0.37M) | 204 KB | 7.94 |
+
+> **Nhận xét:** Fast-SCNN vượt trội ENet ở tất cả các chỉ số đánh giá. Đặc biệt, tốc độ inference trên Raspberry Pi 4 của Fast-SCNN (**23.34 FPS**) nhanh gấp **~3 lần** so với ENet (7.94 FPS), cho thấy Fast-SCNN là lựa chọn phù hợp nhất cho ứng dụng real-time trên thiết bị edge.
 
 ---
 
-## 👤 Tác giả
+## 👥 Tác giả
 
-**Đình Vinh** — [@ddinhvinh](https://github.com/ddinhvinh)
+- **Đình Vinh** — [@ddinhvinh](https://github.com/ddinhvinh)
+- **Hà Phạm Mai Linh** — [@hpmlinh26](https://github.com/hpmlinh26)
+- **Phạm Dương** — [@pduonng29](https://github.com/pduonng29)
 
 **Hà Phạm Mai Linh** — [@hpmlinh26](https://github.com/hpmlinh26)
 

@@ -278,8 +278,4 @@ python infer_folder.py \
 
 **Đình Vinh** — [@ddinhvinh](https://github.com/ddinhvinh)
 
----
 
-## 📄 License
-
-Dự án này được phát hành dưới [MIT License](LICENSE).

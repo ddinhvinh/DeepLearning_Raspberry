@@ -280,6 +280,9 @@ python infer_folder.py \
 
 **Hà Phạm Mai Linh** — [@hpmlinh26](https://github.com/hpmlinh26)
 
+**Phạm Dương** — [@pduonng29](https://github.com/pduonng29)
+
+
 
 
 

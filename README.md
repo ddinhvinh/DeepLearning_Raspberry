@@ -40,7 +40,7 @@ Hai mô hình được đánh giá:
 - ✅ Huấn luyện với **BCE + Dice Loss** kết hợp
 - ✅ Đánh giá bằng **Dice Coefficient** và **IoU Score**
 - ✅ Data augmentation (flip, brightness)
-- ✅ Hỗ trợ inference đơn ảnh hoặc cả thư mục
+- ✅ Hỗ trợ inference đơn ảnh hoặc thư mục
 - ✅ Xuất overlay trực quan (ảnh gốc + mask dự đoán)
 - ✅ Chuyển đổi sang **TFLite INT8** để chạy trực tiếp trên Raspberry Pi
 - ✅ Cung cấp sẵn model weights (`.keras`) và **TFLite** (`.tflite`)

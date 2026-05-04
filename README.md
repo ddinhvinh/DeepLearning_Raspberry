@@ -94,6 +94,9 @@ Input (256×256×3)
 ├── evaluate.py                       # Đánh giá mô hình trên tập test
 ├── infer_image.py                    # Inference trên 1 ảnh
 ├── infer_folder.py                   # Inference batch trên cả thư mục
+├── paper.tex                         # Mã nguồn Báo cáo nghiên cứu khoa học (LaTeX)
+├── references.bib                    # Tài liệu tham khảo cho báo cáo (BibTeX)
+├── figures/                          # Hình ảnh minh họa cho báo cáo
 ├── .gitignore
 └── README.md
 ```
@@ -280,6 +283,25 @@ Kết quả đánh giá trên tập test, sử dụng **mô hình TFLite INT8** 
 | ENet | 83.29% | 0.5473 | 0.4195 | 0.8 MB (~0.37M) | 204 KB | 7.94 |
 
 > **Nhận xét:** Fast-SCNN vượt trội ENet ở tất cả các chỉ số đánh giá. Đặc biệt, tốc độ inference trên Raspberry Pi 4 của Fast-SCNN (**23.34 FPS**) nhanh gấp **~3 lần** so với ENet (7.94 FPS), cho thấy Fast-SCNN là lựa chọn phù hợp nhất cho ứng dụng real-time trên thiết bị edge.
+
+---
+
+## 📜 Báo cáo Nghiên cứu Khoa học
+
+Dự án này bao gồm mã nguồn báo cáo nghiên cứu khoa học hoàn chỉnh được soạn thảo bằng **LaTeX**. Báo cáo trình bày chi tiết toàn bộ quá trình nghiên cứu, từ cơ sở lý thuyết, kiến trúc mô hình (Fast-SCNN và ENet), kỹ thuật lượng tử hóa (INT8), cho đến đánh giá hiệu năng suy luận thực tế trên Raspberry Pi 4.
+
+- **File chính:** `paper.tex`
+- **Tài liệu tham khảo:** `references.bib`
+- **Hình ảnh:** Thư mục `figures/`
+
+**Biên dịch báo cáo (sử dụng pdflatex):**
+```bash
+pdflatex paper.tex
+bibtex paper
+pdflatex paper.tex
+pdflatex paper.tex
+```
+Hoặc có thể upload trực tiếp thư mục này lên **Overleaf** để biên dịch.
 
 ---
 

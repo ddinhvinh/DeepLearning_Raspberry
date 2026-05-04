@@ -2,7 +2,7 @@
 
 > **Báo cáo Nghiên cứu Khoa học** — Trường Đại học Thăng Long, Khoa Công nghệ Thông tin
 >
-> Nghiên cứu và đánh giá mô hình **Semantic Segmentation** nhẹ (Fast-SCNN & ENet) cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**. Kết quả cho thấy **Fast-SCNN** là mô hình tối ưu nhất để triển khai trên thiết bị edge, với hiệu suất vượt trội so với ENet về cả độ chính xác lẫn tốc độ.
+> Nghiên cứu và đánh giá mô hình **Semantic Segmentation** nhẹ (Fast-SCNN & ENet) cho bài toán phân vùng bệnh cây trồng trên **Raspberry Pi 4**. Kết quả cho thấy **Fast-SCNN** là mô hình tối ưu nhất để triển khai trên thiết bị edge, với hiệu suất vượt trội so với ENet về cả độ chính xác lẫn tốc độ. 
 
 ---
 
